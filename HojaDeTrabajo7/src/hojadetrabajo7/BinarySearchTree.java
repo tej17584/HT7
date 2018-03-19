@@ -1,106 +1,88 @@
-
+/**
+ * Clase que define los metodo propios del binary search tree.
+ * Algoritmos y estructura de datos - seccion 10
+ * @author: Oscar Juarez - 17315
+ * @author: Jose Alejandro Tejada - 17584
+ * @version: 19.03.18
+ */
 package hojadetrabajo7;
 
-public class BinarySearchTree<E> 
-{
-    private Node root;
-    
-    public BinarySearchTree()
-    // post: constructor that generates an empty node
-    {
-        root = null;
-    }
-    /**
-     * Funcion que llama a la función recursiva (establece el punto de comienzo - raíz del árbol - para empezar a revisar y determinar en 
-     * dónde se inserta un nuevo nodo en el árbol).
-     * @param newNode: nodo que se desea 
-     * 
-     * Obtenido de: https://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/
-     */
-    public void insert(Node newNode) 
-    {
-        root = insertRec(root, newNode);
-    }
-     
-    /**
-     * Funcion recursiva para insertar un nuevo nodo en el árbol
-     * @param root: conforme se revisa el árbol, root toma el valor del nodo (que ya está en el árbol) que se compara con el 
-     * nodo que se quiere insertar.
-     * @param nodo: el que se quiere insertar
-     * @return Node: referencia a la posición del árbol del nodo insertado.
-     * 
-     * Obtenido y modificado de: https://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/
-     */
-    public Node insertRec(Node root, Node nodo) 
-    {
- 
-        /* Si el árbol está vacío, establece el nodo argumento como la raíz del árbol */
-        if (root == null) 
-        {
-            root = nodo;
-            return root;
-        }
- 
-        /* De lo contrario, busca en el árbol la posición que le corresponde al nodo del argumento */
-        else if ((root.getKey()).compareTo(nodo.getKey()) > 0) //devuelve positivo si el primer string es menor que el segundo
-        {
-            root.setLeft(insertRec(root.getLeft(), nodo)); //al nodo actual, le pone el nodo del argumento como hijo izquierdo
-            root.getLeft().setParent(root); //crea el vinculo padre-hijo entre nodos
-        }
-        else if ((root.getKey().compareTo(nodo.getKey()) < 0))
-        {
-            root.setRight(insertRec(root.getRight(), nodo));//al nodo actual, le pone el nodo del argumento como hijo izquierdo
-            root.getRight().setParent(root); //crea el vinculo padre-hijo entre nodos
-        }
- 
-        /* Devuelve referencia a nodo */
-      return root;
-    }
-    /**
-     * Método que busca si una palabra en inglés existe en el árbol y su traducción.
-     * @param dato
-     * @param root: nodo actual
-     * @param key: valor que se está buscando en el árbol
-     * @return Node: nodo que contiene la referencia buscada.
-     * 
-     * Obtenido de: https://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/
-     */
-    
-    public String search(String dato){
-        
-        if (root == null){
-            
-            return "*" + dato + "*";
-        }else{
-            return root.search(dato);
-        }
-    }
-    
-    /**
-     * Funcion que llama a la función recursiva (establece el punto de comienzo - raíz del árbol - para empezar a revisar y 
-     * comparar nodos).
-     * Obtenido de: https://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/
-     */
-    public void inorder()  {
-       inorderRec(root);
-    }
- 
-    /**
-     * Función que va cambiando de nodos e imprimiéndolos en Inorder.
-     * @param root: nodo que actualmente se está comparando
-     * Obtenido y modificado de: https://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/
-     */
-    public void inorderRec(Node root) {
-        if (root != null) {
-            inorderRec(root.getLeft());
-            System.out.println(root.toString());
-            inorderRec(root.getRight());
-        }
-    }
+import static com.sun.xml.internal.ws.util.VersionUtil.compare;
 
-    public Node getRoot() {
-        return root;
+public class BinarySearchTree<E> {
+    
+    private Node raiz;
+
+    /**
+     * Metodo que crea un nodo vacio
+     */
+    public BinarySearchTree() {
+        this.raiz = null;
     }
     
+    public void insert(Node nuevoNodo) {
+        
+        raiz = insertRec(raiz, nuevoNodo);
+        
+    }
     
+    /**
+     * Metodo que inserta un nodo en la posicion que corresponde.
+     * @param raiz: la raiz del nodo actual
+     * @param nodo: el nodo a insertar en el arbol
+     * @return: La referencia del nuevo nodo en el arbol.
+     */
+    public Node insertRec(Node raiz, Node nodo) 
+    {
+         
+        if (raiz == null) {
+            raiz = nodo;
+            return raiz;
+        }
+         
+        else if ((raiz.getKey()).compareTo(nodo.getKey()) > 0){
+            raiz.setIzquierda(insertRec(raiz.getIzquierda(), nodo)); 
+            raiz.getIzquierda().setPadre(raiz); 
+        }
+        
+        else {
+            raiz.setDerecha(insertRec(raiz.getDerecha(), nodo));
+            raiz.getDerecha().setPadre(raiz);
+        }
+         
+      return raiz;    
+        
+    }
+    
+    public String search(String palabra) {
+        
+        if (raiz == null) {
+            
+            return "*" + palabra + "*";
+            
+        } else {
+            
+            palabra = raiz.buscar(palabra);
+        }
+        
+        return palabra;
+    }
+    
+    public Node getRaiz() {
+        return raiz;
+    }
+    
+    public void inorderRec(Node raiz) {
+        if (raiz != null) {
+            
+            inorderRec(raiz.getIzquierda());
+            System.out.println(raiz.toString());
+            inorderRec(raiz.getDerecha());
+        }
+    }
+    
+    public void inorder()  {
+       inorderRec(raiz);
+    }
+ 
 }

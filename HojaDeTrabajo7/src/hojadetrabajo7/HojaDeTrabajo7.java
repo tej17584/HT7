@@ -16,38 +16,42 @@ public class HojaDeTrabajo7 {
      * @param arg
      */
     public static void main(String [] arg) {
-      File archivo = null;
-      FileReader fr = null;
-       FileReader frr = null;
-      BufferedReader br = null;
-       BufferedReader brr = null;
-      Map<String,String> mapaEnviar = new TreeMap<>();
-      Node<Association<String,String>> nuevoNodo;
+        File archivo = null;
+        FileReader fr = null;
+        FileReader frr = null;
+        BufferedReader br = null;
+        BufferedReader brr = null;
+        Map<String,String> mapaEnviar = new TreeMap<>();
+        Node<Association<String,String>> nuevoNodo;
         BinarySearchTree<Node<Association<String, String>>> bst = new BinarySearchTree<>(); //se crea nuevo arbol null
     
       
-         try {
-         // Apertura del fichero y creacion de BufferedReader para poder
-         // hacer una lectura comoda (disponer del metodo readLine()).
-         fr= new FileReader("diccionario.txt");
-         br = new BufferedReader(fr);
+        try {
+        // Apertura del fichero y creacion de BufferedReader para poder
+        // hacer una lectura comoda (disponer del metodo readLine()).
+        fr= new FileReader("diccionario.txt");
+        br = new BufferedReader(fr);
          
-         // Lectura del fichero
-          // Lectura del fichero
-         String linea;
-         String Key;
-         String Value;
-         int posicion;
-         while((linea=br.readLine())!=null){
-             posicion=linea.indexOf(",");
-             Key=linea.substring(1, posicion);
-             Value=linea.substring(posicion+2, linea.length()-1);  
-             
-             nuevoNodo = new Node<>(Key.toUpperCase(), Value.toUpperCase()); //se crea el "nodo" que se pondrá en el tree
-             
+        // Lectura del fichero
+        // Lectura del fichero
+        String linea;
+        String Key;
+        String Value;
+        int posicion;
+        while((linea=br.readLine())!=null){
+            posicion=linea.indexOf(",");
+            Key=linea.substring(1, posicion);            
+            Value=linea.substring(posicion+2, linea.length()-1);              
+
+            nuevoNodo = new Node<>(Key.toUpperCase(), Value.toUpperCase()); //se crea el "nodo" que se pondrá en el tree             
+            bst.insert(nuevoNodo);
+            
+//            System.out.println("(" + Key + ", " + Value + ")");
          }
-         System.out.println("Imprimiendo diccionario - InOrder: ");
-            bst.inorder();
+        
+         System.out.println("Imprimiendo diccionario - InOrder: ");         
+         bst.inorder();
+         
          //Iniciamos con la segunda lectura del archivo a traducir
          frr= new FileReader("texto.txt");
          brr = new BufferedReader(frr);

@@ -11,37 +11,39 @@ import java.util.Map;
 
 public class Association<K,V> implements Map.Entry<K,V>{
     
-    protected K theKey;
-    protected V theValue;
+    protected K key;
+    protected V value;
 
     public Association(K key, V value) {
-        this.theKey = key;
-        this.theValue = value;
+        this.key = key;
+        this.value = value;
     }        
     
     public Association(K llave) {
         this(llave, null);        
-    }
-
-    Association() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    }  
 
     @Override
     public K getKey() {
-        return theKey;
+        return key;
     }
 
     @Override
     public V getValue() {
-        return theValue;
+        return value;
     }
 
     @Override
     public V setValue(V nuevoValor) {
-        V valorViejo = theValue;
-        theValue = nuevoValor;
+        V valorViejo = value;
+        value = nuevoValor;
         return valorViejo;
+    }
+    
+    @Override
+    public boolean equals (Object objeto) {
+        Association otroObjeto = (Association)objeto;
+        return getKey().equals(otroObjeto.getKey());
     }
     
 }
