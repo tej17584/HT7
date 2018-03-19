@@ -1,126 +1,127 @@
-/**
- * Clase que define los nodos que se estaran usando en el programa
- * Algoritmos y estructura de datos - seccion 10
- * @author: Oscar Juarez - 17315
- * @author: Jose Alejandro Tejada - 17584
- * @version: 19.03.18
- */
 package hojadetrabajo7;
 
 public class Node<E> {
+    private Association<String, String> value; // valor del nodo
+    private Node<E> parent; // padre de nodo
+    private Node<E> left, right; // hijos laterales de nodo
     
-    private Association<String, String> valor;
-    private Node<E> padre;
-    private Node<E> izquierda, derecha;
-
-    public Node(Association<String, String> valor) {
-        this.valor = valor;
-        padre = null;
-        izquierda = null;
-        derecha = null;
-    }
-    
-    public Node(){}
-    
-//    public Association<String,String> getValue(){        
-//        
-//        return valor;        
-//    }
-    
-    /**
-     * Metodo que retorna la llave del nodo.
-     * @return: La palabra en ingles.
-     */
-    public String getKey(){
-        return valor.key;
-    }
-    
-    /**
-     * Metodo que retorna la palabra en el valor del nodo.
-     * @return: La palabra en espanol.
-     */
-    public String getValue(){
-        return valor.value;       
-    }        
-
-    /**
-     * Metodo que retorna la referencia al padre del nodo
-     * @return: El nodo del pabre
-     */
-    public Node<E> getPadre() {
-        return padre;
+    public Node(String ingles, String espanol)
+    {
+        value = new Association<>(ingles, espanol);
+        parent = null; 
+        left = right = null;
     }
 
-    /**
-     * Metodo que retorna la referencia al lado izquierdo del nodo.
-     * @return: El lado izquierdo del nodo.
-     */
-    public Node<E> getIzquierda() {
-        return izquierda;
-    }
-    
-    /**
-     * Metodo que retorna la referencia al lado derecho del nodo.
-     * @return: El lado derecho del nodo.
-     */
-    public Node<E> getDerecha() {
-        return derecha;
-    }
-
-    /**
-     * Metodo que crea la referencia al padre del nodo
-     * @param padre: El padre del nodo actual.
-     */
-    public void setPadre(Node<E> padre) {
-        this.padre = padre;
-    }
-
-    /**
-     * Metodo que crea la referencia al lado derecho del nodo
-     * @param derecha: El lado derecho del nodo actual.
-     */
-    public void setDerecha(Node<E> derecha) {
-        this.derecha = derecha;
-    }
-    
-    /**
-     * Metodo que crea la referencia al lado izquierdo del nodo.
-     * @param izquierda: El lado izquierdo del nodo actual.
-     */
-    public void setIzquierda(Node<E> izquierda) {
-        this.izquierda = izquierda;        
-    }
-    
-    /**
-     * Metodo que busca si el nodo contiene la palabra a evaluar
-     * @param palabra: la palabra en ingles.
-     * @return: Dependiendo si encuentra la palabra, devuelve la misma pero traducida
-     * de lo contario, devuelve la misma palabra ingresada.
-     */
-    public String buscar(String palabra) {
+    public Node() {
         
-        String palabraIngles = this.valor.getKey();
-        String palabraEspanol = this.valor.getValue();
-        
-        if (palabra.equals(palabraIngles)) {
-            return palabraEspanol;
+    }
+    /**
+     * Obtiene el valor contenido en el nodo.
+     * @return Association : valor que contiene el nodo (un association con la palabra en inglés como key y la de español como value)
+     */
+    public Association<String, String> getValue()
+    {
+        return value; //devuelve la palabra en español
+    }
+    /**
+     * Obtiene la palabra en español.
+     * @return String palabra en español que contiene el nodo
+     */
+    public String getEspanol()
+    {
+        return value.theValue;
+    }
+    /**
+     * Obtiene la palabra en inglés
+     * @return String palabra en inglés que contiene el nodo
+     */
+    public String getKey()
+    {
+        return value.getKey(); //devuelve la palabra en ingles
+    }
+    /**
+     * Obtiene referencia a hijo izquierdo.
+     * @return Node hijo izquierdo del nodo
+     */
+    public Node<E> getLeft()
+    {
+        return left;
+    }
+    /**
+     * Obtiene referencia a hijo derecho.
+     * @return Node hijo derecho del nodo
+     */
+    public Node<E> getRight()
+    {
+        return right;
+    }
+    /**
+     * Obtiene referencia a padre
+     * @return Node padre del nodo
+     */
+    public Node<E> getParent()
+    {
+        return parent;
+    }
+    /**
+     * Establece referencia a hijo izquierdo.
+     * @param left: nueva referencia a hijo derecho del nodo
+     */
+    public void setLeft(Node left)
+    {
+        this.left = left;
+    }
+    /**
+     * Establece referencia a hijo derecho.
+     * @param right: nueva referencia a hijo izquierdo del nodo
+     */
+    public void setRight(Node right)
+    {
+        this.right = right;
+    }
+    /**
+     * Establece referencia a padre.
+     * @param newParent: nuevo padre del nodo
+     */
+    public void setParent(Node newParent)
+    // post: re-parents this node to parent reference, or null
+    {
+            parent = newParent;
+    }
+    /**
+     * Obtiene descripción en String del presente objeto.
+     * @return String de los valores que contiene el nodo
+     */
+    @Override
+    public String toString()
+    {
+       String hilo = "\t("+ value.theKey + ", " + value.theValue + ")";
+       return hilo;
+    }
+    
+    public String search(String value){
+        if (value.equals(this.value.getKey())){
             
-        } else {
+            return this.value.theValue;
+        }else if (value.compareTo(this.value.getKey()) < 0) {
             
-            return "*" + palabra + "*";
+            if (left == null){
+                return "*" + value + "*";
+            }else{
+                return left.search(value);
+            }
+        }else if(value.compareTo(this.value.getKey()) > 0) {
             
+            if (right == null){
+                return "*" + value + "*";
+            }else{
+                return right.search(value);
+
+            }
         }
         
+        return "*" + value + "*";
     }
-
-    @Override
-    public String toString() {
-        String palabraIngles = this.valor.getKey();
-        String palabraEspanol = this.valor.getValue();
-        
-        return "( " + palabraIngles + ", " + palabraEspanol + ")";
-    }
-    
     
     
 }
