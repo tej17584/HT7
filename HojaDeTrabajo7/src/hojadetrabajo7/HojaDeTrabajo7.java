@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 public class HojaDeTrabajo7 {
@@ -32,8 +33,7 @@ public class HojaDeTrabajo7 {
         fr= new FileReader("diccionario.txt");
         br = new BufferedReader(fr);
          
-        // Lectura del fichero
-        // Lectura del fichero
+        // Lectura del fichero        
         String linea;
         String Key;
         String Value;
@@ -46,35 +46,41 @@ public class HojaDeTrabajo7 {
             nuevoNodo = new Node<>(Key.toUpperCase(), Value.toUpperCase()); //se crea el "nodo" que se pondrá en el tree             
             bst.insert(nuevoNodo);
             
-//            System.out.println("(" + Key + ", " + Value + ")");
          }
         
-         System.out.println("Imprimiendo diccionario - InOrder: ");         
+         System.out.println("Imprimiendo diccionario - InOrder: \n");         
          bst.inorder();
          
          //Iniciamos con la segunda lectura del archivo a traducir
          frr= new FileReader("texto.txt");
          brr = new BufferedReader(frr);
-         String linea2=brr.readLine();
-         String WordList[] = linea2.split(" ");
+         Scanner scr = new Scanner(brr);  
          
-         BinarySearchTree<Node<Association<String, String>>> bt = new BinarySearchTree<>();
-        
-        String resultado = "";
+         String linea2="";   
+         String string="";
+         
+          while (scr.hasNextLine()) {
+            linea2 += scr.nextLine();                        
+        }                    
+         
+          string = linea2.replaceAll("\n", " ");
+            System.out.println(string);
+          
+         String WordList[] = string.split(" ");
+         
+         String resultado = "";
 
-        String word;
-        for(String p: WordList){
-            word = p.toUpperCase();
-            resultado += bst.search(word) + " ";
-            
-            
-        }
-        //System.out.println("\n\n\n\n");
-        System.out.println("----------------------------------");
-        System.out.println("Traduccion del documento.");
-        System.out.println(resultado);
-        System.out.println("----------------------------------");
+        String palabra;
         
+        for(String p: WordList){
+            palabra = p.toUpperCase();
+            resultado += bst.search(palabra) + " ";                        
+        }
+         
+        BinarySearchTree<Node<Association<String, String>>> BinarySearchTree = new BinarySearchTree<>();                
+        
+        System.out.println("\n Traduccion:\n");        
+        System.out.println(resultado);                
 
       }
       catch(IOException e){

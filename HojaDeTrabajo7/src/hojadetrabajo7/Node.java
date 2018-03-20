@@ -13,6 +13,11 @@ public class Node<E> {
     private Node<E> padre;
     private Node<E> izquierda, derecha;
 
+    /**
+     * Constructor del nodo
+     * @param palabraI: La palabra en ingles
+     * @param palabraE: La palabra en espanol
+     */
     public Node(String palabraI, String palabraE){
         
         valor = new Association<>(palabraI, palabraE);
@@ -26,11 +31,6 @@ public class Node<E> {
     }
     
     public Node(){}
-    
-//    public Association<String,String> getValue(){        
-//        
-//        return valor;        
-//    }
     
     /**
      * Metodo que retorna la llave del nodo.
@@ -135,6 +135,10 @@ public class Node<E> {
         return "*" + palabra + "*";
     }
 
+    /**
+     * Metodo que une la llave y el valor del nodo
+     * @return: La palabra en ingles seguida de la palabra en espanol
+     */
     @Override
     public String toString() {
         String palabraIngles = this.valor.getKey();

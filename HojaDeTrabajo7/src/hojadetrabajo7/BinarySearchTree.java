@@ -20,6 +20,10 @@ public class BinarySearchTree<E> {
         this.raiz = null;
     }
     
+    /**
+     * Metodo que inserta un nodo.
+     * @param nuevoNodo: El nodo a insertar
+     */
     public void insert(Node nuevoNodo) {
         
         raiz = insertRec(raiz, nuevoNodo);
@@ -54,6 +58,11 @@ public class BinarySearchTree<E> {
         
     }
     
+    /**
+     * Metodo que busca una palabra en todo el nodo.
+     * @param palabra: La palabra a buscar.
+     * @return: El valor del nodo, en este caso, la palabra en espanol
+     */
     public String search(String palabra) {
         
         if (raiz == null) {
@@ -67,11 +76,12 @@ public class BinarySearchTree<E> {
         
         return palabra;
     }
+            
     
-    public Node getRaiz() {
-        return raiz;
-    }
-    
+    /**
+     * Metodo que imprime el arbol en orden L-N-R.
+     * @param raiz: La raiz del arbol
+     */
     public void inorderRec(Node raiz) {
         if (raiz != null) {
             
@@ -81,6 +91,9 @@ public class BinarySearchTree<E> {
         }
     }
     
+    /**
+     * Imprime la raiz en la forma L-N-R.
+     */
     public void inorder()  {
        inorderRec(raiz);
     }

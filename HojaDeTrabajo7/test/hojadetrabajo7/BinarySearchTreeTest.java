@@ -1,7 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Clase que realiza las pruebas unitarias.
+ * Algoritmos y estructura de datos - seccion 10
+ * @author: Oscar Juarez - 17315
+ * @author: Jose Alejandro Tejada - 17584
+ * @version: 19.03.18
  */
 package hojadetrabajo7;
 
@@ -12,10 +14,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author Jose Tejada
- */
 public class BinarySearchTreeTest {
    
 
